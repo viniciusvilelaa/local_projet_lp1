@@ -16,14 +16,23 @@ struct fileInfo
     unsigned long codeLines{};
 };
 
+//struct run options
+//string input_name = ""
+//bool recursive_search = false
+//sort_e sorting_field = NONE;
+//bool ascending = true
+
+
 // Fuction to print the top of table
 void print_Toptable(int x, int m)
 {
     std::cout << "Files processed: " << x << '\n';
     std::cout << std::setfill('-') << std::setw(100 + m) << '\n';
 
-    std::cout 
-                << "Filename"
+    m += 1;
+    
+
+    std::cout   << "Filename"
                 << std::setfill(' ') 
                 << std::setw(m) 
                 << "Language" 
