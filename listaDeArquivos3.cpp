@@ -71,15 +71,36 @@ void print_Infos(fileInfo file, int m)
 }
 
 // function to print the bottom of table6
-void print_Basetable(int m, int x)
+void print_Basetable(int m)
 {
     std::cout << std::setfill('-') << std::setw(100+m) << '\n';
-    std::cout << std::endl;
-    std::cout   << std::left
-                << std::setw(m * 2 + 2)
-                << "SUM"
+
+
+}
+
+//Function to print the Sum
+void print_Sum(int m, int x, int y /*int z, int w*/){
+    /*std::cout   << "SUM"
                 << std::setfill(' ')
-                << x;
+                << x
+                << std::setw(m * 2 + 2)
+                << y
+                << std::setw(m * 2 + 2);
+                //<< 
+                /*<< y
+                << std::setw(m * 2 + 2)
+                << z
+                << std::setw(m * 2 + 2)
+                << w;
+            */
+    std::cout << std::left
+                << std::setw(m + 2)
+                << "SUM"
+                << std::setw(m + 2)
+                << x
+                << std::setfill(' ')
+                << y;
+                
 
 }
 
@@ -98,6 +119,9 @@ int main(int argc, char *argv[])
     char *caminho = argv[1]; // se tiver opções a posição do caminho n será estática, sujeito a mudança
     int maior = 0; //Save the 
     int sum_Comments = 0;
+    int sum_Blank = 0;
+    int sum_Code = 0;
+    int sum_All = 0;
 
     if (argc == 1 || !strcmp(argv[1], "-h") || !strcmp(argv[1], "--help"))
     {
@@ -238,6 +262,9 @@ int main(int argc, char *argv[])
                 }
             }
             sum_Comments = sum_Comments + file.comentLines;
+            sum_Blank = sum_Blank + file.emptyLines;
+            /*sum_Code = sum_Code + file.codeLines;
+            sum_All = sum_Code + sum_Blank + sum_Code;*/
 
             myFile.close();
             // std::cout << "linhas em branco: " << file.emptyLines << "\n";      // LINHA PARA TESTE, DELETAR NA VERSÃO FINAL
@@ -252,7 +279,8 @@ int main(int argc, char *argv[])
     }
 
     
-    print_Basetable(maior, sum_Comments);
+    print_Basetable(maior);
+    print_Sum(maior, sum_Comments, sum_Blank);
 
     return 0;
 }
