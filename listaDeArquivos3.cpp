@@ -71,9 +71,16 @@ void print_Infos(fileInfo file, int m)
 }
 
 // function to print the bottom of table6
-void print_Basetable(int m)
+void print_Basetable(int m, int x)
 {
     std::cout << std::setfill('-') << std::setw(100+m) << '\n';
+    std::cout << std::endl;
+    std::cout   << std::left
+                << std::setw(m * 2 + 2)
+                << "SUM"
+                << std::setfill(' ')
+                << x;
+
 }
 
 int main(int argc, char *argv[])
@@ -89,7 +96,8 @@ int main(int argc, char *argv[])
 
     bool empty;
     char *caminho = argv[1]; // se tiver opções a posição do caminho n será estática, sujeito a mudança
-    int maior = 0;
+    int maior = 0; //Save the 
+    int sum_Comments = 0;
 
     if (argc == 1 || !strcmp(argv[1], "-h") || !strcmp(argv[1], "--help"))
     {
@@ -225,8 +233,11 @@ int main(int argc, char *argv[])
                     {
                         file.codeLines++;
                     }
+
+                    
                 }
             }
+            sum_Comments = sum_Comments + file.comentLines;
 
             myFile.close();
             // std::cout << "linhas em branco: " << file.emptyLines << "\n";      // LINHA PARA TESTE, DELETAR NA VERSÃO FINAL
@@ -234,10 +245,14 @@ int main(int argc, char *argv[])
             // std::cout << "linhas de comentário: " << file.comentLines << "\n"; // LINHA PARA TESTE, DELETAR NA VERSÃO FINAL
             // std::cout << "linguagem: " << file.language << "\n";               // LINHA PARA TESTE, DELETAR NA VERSÃO FINAL
             print_Infos(file, maior);
+            
         }
+        
+        
     }
 
-    print_Basetable(maior);
+    
+    print_Basetable(maior, sum_Comments);
 
     return 0;
 }
