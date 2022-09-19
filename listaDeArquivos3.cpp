@@ -26,10 +26,11 @@ struct fileInfo
 // Fuction to print the top of table
 void print_Toptable(int x, int m)
 {
+    m += 1;
     std::cout << "Files processed: " << x << '\n';
     std::cout << std::setfill('-') << std::setw(100 + m) << '\n';
 
-    m += 1;
+    
     
 
     std::cout   << "Filename"
@@ -47,11 +48,16 @@ void print_Toptable(int x, int m)
     
     
     
-    std::cout << std::setfill('-') << std::setw(100 + m) << '\n';
+    std::cout << std::setfill('-') << std::setw(100 + m) << '\n' << std::setfill(' ');
 }
 // Function to print infos of each file
 void print_Infos(fileInfo file, int m)
 {
+    float total = file.codeLines + file.comentLines + file.emptyLines;
+    
+    int percentComment = (file.comentLines / total) * 100;
+
+
     m += 2;
     std::cout << std::left
               << std::setw(m)
@@ -60,46 +66,45 @@ void print_Infos(fileInfo file, int m)
               << std::setw(m)
               << file.language
               << std::setw(m)
-              << file.comentLines
+              << file.comentLines << "(" << percentComment << "%)"
               << std::setw(m)
               << file.emptyLines
               << std::setw(m)
               << file.codeLines
               << std::setw(m)
               << file.codeLines + file.emptyLines + file.comentLines
-              << '\n';
+              << std::endl;
+              
 }
 
 // function to print the bottom of table6
 void print_Basetable(int m)
 {
-    std::cout << std::setfill('-') << std::setw(100+m) << '\n';
+    m += 1;
+    std::cout << std::setfill('-') << std::setw(100+m) << '\n' << std::setfill(' ');
+    std::cout << std::endl;
 
 
 }
 
 //Function to print the Sum
-void print_Sum(int m, int x, int y /*int z, int w*/){
-    /*std::cout   << "SUM"
-                << std::setfill(' ')
-                << x
-                << std::setw(m * 2 + 2)
-                << y
-                << std::setw(m * 2 + 2);
-                //<< 
-                /*<< y
-                << std::setw(m * 2 + 2)
-                << z
-                << std::setw(m * 2 + 2)
-                << w;
-            */
-    std::cout << std::left
-                << std::setw(m + 2)
+void print_Sum(int m, int x, int y, int z, int w){
+    m += 2;
+    std::cout   << std::left
+                << std::setw((m * 2))
                 << "SUM"
-                << std::setw(m + 2)
-                << x
                 << std::setfill(' ')
-                << y;
+                << std::setw(m)
+                << x
+                << std::setw(m)
+                << y
+                << std::setw(m)
+                << z
+                << std::setw(m)
+                << w
+
+    << std::setfill('-') << std::setw(100+m-1) << '\n' << std::setfill(' ')
+    << std::endl;
                 
 
 }
@@ -263,8 +268,8 @@ int main(int argc, char *argv[])
             }
             sum_Comments = sum_Comments + file.comentLines;
             sum_Blank = sum_Blank + file.emptyLines;
-            /*sum_Code = sum_Code + file.codeLines;
-            sum_All = sum_Code + sum_Blank + sum_Code;*/
+            sum_Code = sum_Code + file.codeLines;
+            sum_All = sum_Code + sum_Blank + sum_Comments;
 
             myFile.close();
             // std::cout << "linhas em branco: " << file.emptyLines << "\n";      // LINHA PARA TESTE, DELETAR NA VERSÃO FINAL
@@ -280,7 +285,7 @@ int main(int argc, char *argv[])
 
     
     print_Basetable(maior);
-    print_Sum(maior, sum_Comments, sum_Blank);
+    print_Sum(maior, sum_Comments, sum_Blank, sum_Code, sum_All);
 
     return 0;
 }
