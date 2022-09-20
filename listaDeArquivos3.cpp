@@ -57,6 +57,14 @@ void print_Infos(fileInfo file, int m)
     
     float percentComment = (file.comentLines / total) * 100;
 
+    int Commentsize = 0;
+    if(percentComment < 9.9){
+      Commentsize = 3;
+    }
+    else{
+      Commentsize = 4;
+    }
+    
 
     m += 2;
     std::cout << std::left
@@ -71,7 +79,7 @@ void print_Infos(fileInfo file, int m)
               << file.comentLines
               << "(" << std::setprecision(1) << std::fixed << percentComment
               << std::setfill(' ')
-              << std::setw(m - 5) << "%)"
+              << std::setw(m - Commentsize) << "%)"
               << std::setw(m)
               << file.emptyLines
               << std::setw(m)
