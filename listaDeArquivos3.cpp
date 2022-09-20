@@ -57,12 +57,50 @@ void print_Infos(fileInfo file, int m)
     
     float percentComment = (file.comentLines / total) * 100;
 
+    float percentEmpty = (file.emptyLines / total) * 100;
+
+    float percentCode = (file.codeLines / total) * 100;
+
     int Commentsize = 0;
     if(percentComment < 9.9){
-      Commentsize = 3;
+      Commentsize = 6;
+    }
+    else if(file.comentLines > 9.9  & file.comentLines < 99.9){
+      Commentsize = 8;
+    }
+    else if(file.comentLines > 99.9){
+      Commentsize = 9;
     }
     else{
-      Commentsize = 4;
+      Commentsize = 7;
+    }
+
+    int emptysize = 0;
+    if(percentEmpty < 9.9){
+      emptysize = 6;
+    }
+    else if(file.emptyLines > 9.9 & file.emptyLines < 99.9){
+      emptysize = 8;
+    }
+    else if(file.emptyLines > 99.9){
+      emptysize = 9;
+    }
+    else{
+      emptysize = 7;
+    }
+
+  int codesize = 0;
+    if(percentCode < 9.9){
+      codesize = 6;
+    }
+    else if(file.codeLines > 9.9 & file.codeLines < 99.9){
+      codesize = 8;
+    }
+    else if(file.codeLines > 99.9){
+      codesize = 9;
+    }
+    else{
+      codesize = 7;
     }
     
 
@@ -77,14 +115,20 @@ void print_Infos(fileInfo file, int m)
               
     std::cout
               << file.comentLines
-              << "(" << std::setprecision(1) << std::fixed << percentComment
+              << " (" << std::setprecision(1) << std::fixed << percentComment
               << std::setfill(' ')
               << std::setw(m - Commentsize) << "%)"
-              << std::setw(m)
+              << std::setw(0)
               << file.emptyLines
-              << std::setw(m)
+              << " (" << std::setprecision(1) << std::fixed << percentEmpty
+              << std::setfill(' ')
+              << std::setw(m - emptysize) << "%)"
+              << std::setw(0)
               << file.codeLines
-              << std::setw(m)
+              << " (" << std::setprecision(1) << std::fixed << percentCode
+              << std::setfill(' ')
+              << std::setw(m - codesize) << "%)"
+              << std::setw(0)
               << file.codeLines + file.emptyLines + file.comentLines
               << std::endl;
               
