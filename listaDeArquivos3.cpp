@@ -55,7 +55,7 @@ void print_Infos(fileInfo file, int m)
 {
     float total = file.codeLines + file.comentLines + file.emptyLines;
     
-    int percentComment = (file.comentLines / total) * 100;
+    float percentComment = (file.comentLines / total) * 100;
 
 
     m += 2;
@@ -65,8 +65,13 @@ void print_Infos(fileInfo file, int m)
               << std::setfill(' ')
               << std::setw(m)
               << file.language
-              << std::setw(m)
-              << file.comentLines << "(" << percentComment << "%)"
+              << std::setw(0);
+              
+    std::cout
+              << file.comentLines
+              << "(" << std::setprecision(1) << std::fixed << percentComment
+              << std::setfill(' ')
+              << std::setw(m - 5) << "%)"
               << std::setw(m)
               << file.emptyLines
               << std::setw(m)
