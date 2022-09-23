@@ -123,7 +123,7 @@ void print_Infos(fileInfo file, int m)
               << " (" << std::setprecision(1) << std::fixed << percentEmpty
               << std::setfill(' ')
               << std::setw(m - emptysize) << "%)"
-              << std::setw(0)
+              
               << file.codeLines
               << " (" << std::setprecision(1) << std::fixed << percentCode
               << std::setfill(' ')
